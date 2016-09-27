@@ -2,30 +2,30 @@
 app.controller("MapCtrl", ["$scope","getData","NgMap", function($scope,getData,NgMap) {
 	
 	getData.success(function(data){
-	$scope.arrAvailable = [];
-	$scope.arrNot = [];
+	var arrAvailable = [];
+	var arrNot = [];
       for (var i = 0; i< data.features.length; i++) {
 		  if(data.features[i].properties.layers['parking.garage'].data.FreeSpaceShort<1){
-          	$scope.arrNot.push(data.features[i]);
+          	arrNot.push(data.features[i]);
 		  }else												//split the array to two different depending on the availability
 		  {
-			 $scope.arrAvailable.push(data.features[i]); 
+			 arrAvailable.push(data.features[i]); 
 		  }
       }
 	  
-	  for (var i = 0; i< $scope.arrAvailable.length; i++){
-	  	$scope.arrAvailable[i].iconUrl="././images/green-traffic-light.png";
+	  for (var i = 0; i< arrAvailable.length; i++){
+	  	arrAvailable[i].iconUrl="././images/green-traffic-light.png";
 	  }																		//add the related trafic-light icon as property
 	  
-	  for (var i = 0; i< $scope.arrNot.length; i++){
-	  	$scope.arrNot[i].iconUrl="././images/red-traffic-light.png";
+	  for (var i = 0; i< arrNot.length; i++){
+	  	arrNot[i].iconUrl="././images/red-traffic-light.png";
 	  }
 	  
 	  
-	  $scope.arrNew = $scope.arrAvailable;
+	  $scope.arrNew = arrAvailable;
 	  
-	 for (var i = 0; i< $scope.arrNot.length; i++){			//merge the arrays
-	  	$scope.arrNew.push($scope.arrNot[i]); 
+	 for (var i = 0; i< arrNot.length; i++){			//merge the arrays
+	  	$scope.arrNew.push(arrNot[i]); 
 	  }
 	});
 	
